@@ -1,0 +1,12 @@
+.developer
+{
+    position: relative;
+    top: 1600px;
+    align-content: center;
+    text-align: center;
+}
+.body{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
