@@ -1,6 +1,7 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "openai-realtime-console",
+  "version": "0.0.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@openai/realtime-api-beta": "github:openai/openai-realtime-api-beta",
@@ -36,7 +37,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "zip": "zip -r realtime-api-console.zip . -x 'node_modules' 'node_modules/*' 'node_modules/**' '.git' '.git/*' '.git/**' '.DS_Store' '*/.DS_Store' 'package-lock.json' '*.zip' '*.tar.gz' '*.tar' '.env'",
+    "relay": "nodemon ./relay-server/index.js"
   },
   "eslintConfig": {
     "extends": [
@@ -57,9 +60,17 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47",
-    "react-router-dom": "^6.21.3",
-    "tailwindcss": "^3.4.14"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "nodemon": "^3.1.7",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3"
+  },
+  "description": "The OpenAI Realtime Console is intended as an inspector and interactive API reference\r for the OpenAI Realtime API. It comes packaged with two utility libraries,\r [openai/openai-realtime-api-beta](https://github.com/openai/openai-realtime-api-beta)\r that acts as a **Reference Client** (for browser and Node.js) and\r [`/src/lib/wavtools`](./src/lib/wavtools) which allows for simple audio\r management in the browser.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18"
   }
 }

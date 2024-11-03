@@ -1,12 +1,5 @@
-.developer
-{
-    position: relative;
-    top: 1600px;
-    align-content: center;
-    text-align: center;
-}
-.body{
-    position: relative;
-    width: 100%;
-    overflow: hidden;
+[data-component='App'] {
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
