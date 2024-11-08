@@ -18,6 +18,9 @@ const Contact = () => {
   const serverAdress =
     process.env.SERVERADRESS || 'https://kuhd6f1ybvc2cn-5000.proxy.runpod.net';
 
+  const handleHomeClick = () => {
+    window.location.href = '/';
+  };
   const sendEmail = () => {
     fetch(`${serverAdress}/api/v1/send_email`, {
       method: 'POST',
@@ -37,12 +40,16 @@ const Contact = () => {
   };
 
   return (
-    <div
-      className={`${
-        isDarkMode ? 'bg-black text-white' : 'bg-white text-black'
-      }`}
-    >
-      <div className="digonal-background h-full p-[150px]">
+    <div className="digonal-background">
+      <div className="flex justify-right items-right space-x-4 pt-[20px] ml-[90%]">
+        <button
+          onClick={handleHomeClick}
+          className="bg-white px-4 py-2 w-auto rounded-lg text-base uppercase font-semibold text-[#4f7cff]"
+        >
+          Home
+        </button>
+      </div>
+      <div className=" h-full p-[150px]">
         {/* <div className={`${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`} data-component="ConsolePage"> */}
         <div className="max-w-md mx-auto  p-6 bg-white shadow-md rounded-lg justify-center items-center">
           <h1 className="text-2xl font-bold mb-4">Contact Us</h1>

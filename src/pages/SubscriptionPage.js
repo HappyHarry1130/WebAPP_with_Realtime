@@ -70,6 +70,10 @@ const SubscriptionPage = () => {
       });
   };
 
+  const handleHomeClick = () => {
+    window.location.href = '/';
+  };
+
   return (
     <>
       <div className="flex flex-col items-center w-full mx-auto min-h-screen digonal-background overflow-x-hidden">
@@ -86,8 +90,11 @@ const SubscriptionPage = () => {
             ) : (
               <div className="flex justify-center items-center space-x-4">
                 <span className="text-white text-xl">{userName}</span>
-                <button className="bg-white px-4 py-2 w-auto rounded-lg text-base uppercase font-semibold text-[#4f7cff]">
-                  Logout
+                <button
+                  onClick={handleHomeClick}
+                  className="bg-white px-4 py-2 w-auto rounded-lg text-base uppercase font-semibold text-[#4f7cff]"
+                >
+                  Home
                 </button>
               </div>
             )}
