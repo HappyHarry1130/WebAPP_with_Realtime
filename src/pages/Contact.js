@@ -15,7 +15,8 @@ const Contact = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const serverAdress = process.env.SERVERADRESS || 'http://localhost:5000';
+  const serverAdress =
+    process.env.SERVERADRESS || 'https://kuhd6f1ybvc2cn-5000.proxy.runpod.net';
 
   const sendEmail = () => {
     fetch(`${serverAdress}/api/v1/send_email`, {

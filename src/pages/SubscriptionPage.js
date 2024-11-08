@@ -27,7 +27,8 @@ const SubscriptionPage = () => {
   const [userId, setUserId] = useState('');
   const [userName, setUserName] = useState('');
   const [planType, setPlanType] = useState('');
-  const serverAdress = process.env.SERVERADRESS || 'http://localhost:5000';
+  const serverAdress =
+    process.env.SERVERADRESS || 'https://kuhd6f1ybvc2cn-5000.proxy.runpod.net';
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

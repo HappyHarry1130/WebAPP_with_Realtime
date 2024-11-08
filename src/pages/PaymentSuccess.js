@@ -7,7 +7,8 @@ const Success = () => {
   const [userId, setUserId] = useState('');
   const [sessionId, setSessionId] = useState('');
   const navigate = useNavigate();
-  const serverAdress = process.env.SERVERADRESS || 'http://localhost:5000';
+  const serverAdress =
+    process.env.SERVERADRESS || 'https://kuhd6f1ybvc2cn-5000.proxy.runpod.net';
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
