@@ -39,6 +39,10 @@ const UserMenu = ({ isDarkMode, setIsDarkMode }) => {
     const handleSubscription = () => {
         navigate('/subscription');
     };
+    const handleContact = () => {
+        navigate('/contact');
+    };
+    
 
     return (
         <div className="absolute top-4 right-4" ref={menuRef}>
@@ -53,6 +57,7 @@ const UserMenu = ({ isDarkMode, setIsDarkMode }) => {
                 <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg">
                     <button onClick={handleSubscription} className="block w-full text-left px-4 py-2 hover:bg-gray-200">Profile & Subscription</button>
                     <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-gray-200">Log out</button>
+                    <button onClick={handleContact} className="block w-full text-left px-4 py-2 hover:bg-gray-200">Contact</button>
                     <button onClick={toggleTheme} className="block w-full text-left px-4 py-2 hover:bg-gray-200">
                         Mode: {isDarkMode ? 'Dark' : 'Light'}
                     </button>
