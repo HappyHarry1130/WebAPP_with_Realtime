@@ -96,7 +96,7 @@ variable or set it to empty string.
  * You can run it with `npm run relay`, in parallel with `npm start`
  */
 const LOCAL_RELAY_SERVER_URL: string =
-  process.env.REACT_APP_LOCAL_RELAY_SERVER_URL || '';
+  nv.REACT_APP_LOCAL_RELAY_SERVER_URL || '';
 ```
 
 This server is **only a simple message relay**, but it can be extended to:
