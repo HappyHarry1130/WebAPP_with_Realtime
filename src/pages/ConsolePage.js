@@ -8,33 +8,48 @@ import { WavRenderer } from '../utils/wav_renderer';
 import { X, Edit, Zap, ArrowUp, ArrowDown } from 'react-feather';
 import { Button } from '../components/button/Button';
 import { Toggle } from '../components/toggle/Toggle';
-import { Map } from '../components/Map';
 import UserMenu from '../components/UserMenu';
 import './ConsolePage.css';
-
-const LOCAL_RELAY_SERVER_URL = process.env.REACT_APP_LOCAL_RELAY_SERVER_URL || '';
-
+import Intro from '../files/imgaes/Intro.jpg'
+import firebase from '../firebase/firebaseConfig.js';
+import { Link } from 'react-router-dom';
 export function ConsolePage() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const apiKey = LOCAL_RELAY_SERVER_URL
-    ? ''
-    : localStorage.getItem('tmp::voice_api_key') ||
-      prompt('OpenAI API Key') ||
-      '';
-  if (apiKey !== '') {
-    localStorage.setItem('tmp::voice_api_key', apiKey);
-  }
+  const apiKey = process.env.OPENAI_API_KEY ||''
+  const [userId, setUserId] = useState('');
+  const [userName, setUserName] = useState('');
+  const [planType, setPlanType] = useState('');
+
+  useEffect(() => {
+      firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+              setUserId(user.uid ?? '');
+              setUserName(user.displayName ?? '');
+              const userRef = firebase.database().ref("users/" + user.uid);
+              userRef.on("value", (snapshot) => {
+                  const userVal = snapshot.val();
+                  console.log(userVal)
+                  if (userVal.subscription) {
+                      setPlanType(userVal.subscription.planType || '');
+                  } else {
+                      setPlanType('');
+                  }
+              });
+          } else {
+              setUserId('');
+              setUserName('');
+          }
+      });
+  }, [userId]);
 
   const wavRecorderRef = useRef(new WavRecorder({ sampleRate: 24000 }));
   const wavStreamPlayerRef = useRef(new WavStreamPlayer({ sampleRate: 24000 }));
   const clientRef = useRef(
     new RealtimeClient(
-      LOCAL_RELAY_SERVER_URL
-        ? { url: LOCAL_RELAY_SERVER_URL }
-        : {
-            apiKey: apiKey,
-            dangerouslyAllowAPIKeyInBrowser: true,
-          }
+        {
+          apiKey: apiKey,
+          dangerouslyAllowAPIKeyInBrowser: true,
+        }
     )
   );
 
@@ -88,7 +103,7 @@ export function ConsolePage() {
     const client = clientRef.current;
     const wavRecorder = wavRecorderRef.current;
     const wavStreamPlayer = wavStreamPlayerRef.current;
-
+    
     startTimeRef.current = new Date().toISOString();
     setIsConnected(true);
     setRealtimeEvents([]);
@@ -384,13 +399,13 @@ export function ConsolePage() {
   return (
     <div className={`${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`} data-component="ConsolePage">
       <div className='z-10'><UserMenu  isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} /> </div>
-      <div className="content-top">
+      <div className="content-top min-h-[80px] text-[20px]">
         <div className="content-title">
-          <img src="/openai-logomark.svg" />
-          <span>realtime console</span>
+          <img src={Intro} />
+          <span>Realtime MVP</span>
         </div>
 
-        <div className="content-api-key">
+        {/* <div className="content-api-key">
           {!LOCAL_RELAY_SERVER_URL && (
             <Button
               icon={Edit}
@@ -400,11 +415,11 @@ export function ConsolePage() {
               onClick={() => resetAPIKey()}
             />
           )}
-        </div>
+        </div> */}
       </div>
       
       <div className="content-main">
-        <div className="content-logs">
+        { planType === 'pro' ? (<div className="content-logs">
           {realtimeEvents.map((realtimeEvent, i) => {
             const count = realtimeEvent.count;
             const event = { ...realtimeEvent.event };
@@ -515,7 +530,16 @@ export function ConsolePage() {
               }
             />
           </div>
-        </div>
+        </div>):(
+          <div>
+            You cannot use this service right now.
+            <p className="text-center text-gray-600 text-[14px]">
+              Don't have an access?{' '}
+              <Link to="/subscription" className="text-blue-500 hover:underline">
+                Upgrade Now
+              </Link>
+            </p>
+          </div>)}
       </div>
     </div>
   );
