@@ -27,7 +27,7 @@ const SubscriptionPage = () => {
   const [userId, setUserId] = useState('');
   const [userName, setUserName] = useState('');
   const [planType, setPlanType] = useState('');
-  const serverAdress = process.env.SERVERADRESS || 'localhost:5000';
+  const serverAdress = process.env.SERVERADRESS || 'http://localhost:5000';
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

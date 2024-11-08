@@ -15,7 +15,7 @@ const Contact = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const serverAdress = process.env.SERVERADRESS || 'localhost:5000';
+  const serverAdress = process.env.SERVERADRESS || 'http://localhost:5000';
 
   const sendEmail = () => {
     fetch(`${serverAdress}/api/v1/send_email`, {
